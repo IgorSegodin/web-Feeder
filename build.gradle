@@ -1,0 +1,54 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.BUILD-SNAPSHOT'
+		postgreVersion = '9.4.1212.jre7'
+		hikarVersion = '2.5.1'
+		liquibaseVersion = '3.5.3'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "https://mvnrepository.com/artifact/com.zaxxer/HikariCP" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+
+war {
+	baseName = 'TeamFeeder'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://mvnrepository.com/artifact/com.zaxxer/HikariCP" }
+}
+
+dependencies {
+
+	compile("org.springframework.boot:spring-boot-starter-cache:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-websocket:${springBootVersion}")
+	compile("org.liquibase:liquibase-core:${liquibaseVersion}")
+	compile ("com.zaxxer:HikariCP:${hikarVersion}")
+	runtime("org.postgresql:postgresql:${postgreVersion}")
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}")
+	testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+
+
+}
